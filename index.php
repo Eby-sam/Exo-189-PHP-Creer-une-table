@@ -61,7 +61,30 @@
 
 // TODO Votre code ici.
 
+
+$server = "localhost";
+$db = "cours_189";
+$user = "root";
+$password = "";
+
 try {
-    ...
+    $maConnexion = new PDO("mysql:host=$server;dbname=$db", $user, $password);
+    $maConnexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "
+    CREATE TABLE produit (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(50) NOT NULL,
+        prix FLOAT UNSIGNED NOT NULL, 
+        des_court VARCHAR(255),
+        des_long TEXT
+        )
+    ";
+
+    $maConnexion->exec($sql);
+    echo "Table crée avec succès";
 }
-catch...
+catch(PDOException $exception) {
+    echo $exception->getMessage();
+}
+
+$maConnexion = null;
